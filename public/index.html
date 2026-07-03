@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Attendance Automation</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="glass-bg"></div>
+  
+  <div class="container">
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">🕒</div>
+        <h1>SecureTime <span>Automation</span></h1>
+      </div>
+      <div class="status-badge idle" id="global-status-badge">
+        <span class="pulse-dot"></span>
+        <span class="status-text">SYSTEM IDLE</span>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <!-- Controls Panel -->
+      <section class="panel control-panel">
+        <h2>Operations</h2>
+        <p class="panel-subtitle">Enter your portal credentials, then select an attendance action.</p>
+        
+        <!-- Credentials Section -->
+        <div class="credentials-section" id="credentials-section">
+          <div class="credentials-header">
+            <span class="credentials-icon">🔑</span>
+            <span class="credentials-title">Portal Credentials</span>
+            <span class="credentials-badge" id="credentials-badge">Not Set</span>
+          </div>
+          <div class="credentials-fields" id="credentials-fields">
+            <div class="input-group">
+              <label for="input-user-id">User ID</label>
+              <input type="text" id="input-user-id" placeholder="Enter your Portal User ID" autocomplete="username" spellcheck="false">
+            </div>
+            <div class="input-group">
+              <label for="input-password">Password</label>
+              <div class="password-wrapper">
+                <input type="password" id="input-password" placeholder="Enter your Portal Password" autocomplete="current-password">
+                <button type="button" class="toggle-password" id="toggle-password" aria-label="Toggle password visibility">👁️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button id="btn-punch-in" class="btn btn-primary btn-punch">
+            <span class="btn-icon">📥</span>
+            <span class="btn-text">Punch In</span>
+          </button>
+          <button id="btn-punch-out" class="btn btn-secondary btn-punch">
+            <span class="btn-icon">📤</span>
+            <span class="btn-text">Punch Out</span>
+          </button>
+        </div>
+
+        <div class="cancel-area" id="cancel-area" style="display: none;">
+          <button id="btn-cancel" class="btn btn-danger">
+            Cancel Active Automation
+          </button>
+        </div>
+      </section>
+
+      <!-- Logs & Stream Panel -->
+      <section class="panel logs-panel">
+        <div class="panel-header-row">
+          <h2>Execution Log</h2>
+          <button id="btn-clear-logs" class="btn-text-only">Clear Logs</button>
+        </div>
+        <div class="logs-container" id="logs-container">
+          <div class="log-line system-msg">System ready. Click "Punch In" or "Punch Out" to begin.</div>
+        </div>
+      </section>
+
+      <!-- Output / Screenshot Panel -->
+      <section class="panel screenshot-panel">
+        <h2>Verification Output</h2>
+        <p class="panel-subtitle">A screenshot of the successful transaction will be displayed here.</p>
+        
+        <div class="screenshot-container" id="screenshot-container">
+          <div class="screenshot-placeholder">
+            <span class="placeholder-icon">📸</span>
+            <p>Screenshot will appear once the automation finishes successfully</p>
+          </div>
+          <img id="screenshot-img" src="" alt="Successful Punch Verification" style="display: none;">
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- OTP Modal Overlay -->
+  <div class="modal-overlay" id="otp-modal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-icon">🔐</div>
+      <h3>Multi-Factor Authentication</h3>
+      <p>An OTP code has been requested by the portal via Email. Please check your inbox and enter it below.</p>
+      
+      <form id="otp-form">
+        <div class="form-group">
+          <input type="text" id="otp-code-input" placeholder="Enter OTP Code" required maxlength="10" autocomplete="off">
+        </div>
+        <div class="modal-buttons">
+          <button type="button" id="btn-modal-cancel" class="btn btn-secondary-outline">Cancel</button>
+          <button type="submit" id="btn-modal-submit" class="btn btn-primary">Verify & Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: 🚀 Deploy to Render
+    name: Deploy to Render
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,8 @@ jobs:
 
       - name: Verify build
         run: |
-          echo "✅ Dependencies installed successfully"
-          echo "📦 Packages:"
+          echo " Dependencies installed successfully"
+          echo " Packages:"
           npm ls --depth=0
 
       - name: Trigger Render Deploy
@@ -35,19 +35,19 @@ jobs:
           RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
-            echo "❌ RENDER_DEPLOY_HOOK_URL secret is not set!"
-            echo "👉 Go to your Render dashboard → Service → Settings → Deploy Hook"
-            echo "👉 Copy the URL and add it as a GitHub secret named RENDER_DEPLOY_HOOK_URL"
+            echo " RENDER_DEPLOY_HOOK_URL secret is not set!"
+            echo " Go to your Render dashboard → Service → Settings → Deploy Hook"
+            echo " Copy the URL and add it as a GitHub secret named RENDER_DEPLOY_HOOK_URL"
             exit 1
           fi
 
-          echo "🚀 Triggering Render deployment..."
+          echo " Triggering Render deployment..."
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$RENDER_DEPLOY_HOOK_URL")
 
           if [ "$RESPONSE" -eq 200 ] || [ "$RESPONSE" -eq 201 ]; then
-            echo "✅ Render deployment triggered successfully! (HTTP $RESPONSE)"
-            echo "🔗 Check status at: https://dashboard.render.com"
+            echo " Render deployment triggered successfully! (HTTP $RESPONSE)"
+            echo " Check status at: https://dashboard.render.com"
           else
-            echo "❌ Failed to trigger deployment (HTTP $RESPONSE)"
+            echo " Failed to trigger deployment (HTTP $RESPONSE)"
             exit 1
           fi

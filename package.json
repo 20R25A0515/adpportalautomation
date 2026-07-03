@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "build": "npx playwright install --with-deps chromium",
-    "postinstall": "npx playwright install --with-deps chromium"
+    "build": "npx playwright install --with-deps chromium"
   },
   "engines": {
     "node": ">=18.0.0"

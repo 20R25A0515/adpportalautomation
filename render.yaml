@@ -1,11 +1,9 @@
 services:
   - type: web
     name: portal-automation-app
-    runtime: node
-    region: singapore  # Closest to India
+    runtime: docker
+    region: singapore
     plan: free
-    buildCommand: "npm install && npm run build"
-    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production

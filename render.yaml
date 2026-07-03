@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: portal-automation-app
+    runtime: node
+    region: singapore  # Closest to India
+    plan: free
+    buildCommand: npm install && npx playwright install --with-deps chromium
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: PORTAL_LOGIN_URL
+        value: https://online.apac.adp.com/signin/v1/?APPID=ADPVISTA-IN&productId=ff803a24-0ee0-47fc-e053-f282530bfabe&returnURL=https://www.vista.adp.com/in/&callingAppId=ADPVISTA&TARGET=-SM-https://www.vista.adp.com/in/V6/ess/
+      - key: PORTAL_DASHBOARD_URL
+        value: https://www.vista.adp.com/in/V6/ess/dashboard

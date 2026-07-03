@@ -232,9 +232,13 @@ async function runAutomation(action, userId, password) {
   addLog('Launching Chromium browser...');
 
   try {
+    const isProduction = process.env.NODE_ENV === 'production';
     activeBrowser = await chromium.launch({
-      headless: false,
-      args: ['--disable-blink-features=AutomationControlled']
+      headless: isProduction,
+      args: [
+        '--disable-blink-features=AutomationControlled',
+        ...(isProduction ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] : [])
+      ]
     });
 
     const context = await activeBrowser.newContext({
